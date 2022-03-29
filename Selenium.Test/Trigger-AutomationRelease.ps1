@@ -17,7 +17,7 @@ function CreateJsonBody
 # This is the Azure DevOps endpoint through which we can trigger a pipeline
 $uri = "https://vsrm.dev.azure.com/elead1one/eleadplatform/_apis/release/releases?api-version=5.0"
 $json = CreateJsonBody
-$header = @{Authorization = 'Basic ' +[Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$(PAT)")) }
+$header = @{Authorization = 'Basic ' +[Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$Env:PAT")) }
 
 $result = Invoke-RestMethod -Uri $uri -Body $json -Method Post -Header $header -ContentType "application/json"
 write-host "Newly created release id is : " $result.id
@@ -38,5 +38,5 @@ while($TRUE){
 		write-host $res.environments[0].status
 		exit 1
 	}
-	Start-Sleep -s $(PollingFrequencyInSeconds)
+	Start-Sleep -s $Env:PollingFrequencyInSeconds
 }

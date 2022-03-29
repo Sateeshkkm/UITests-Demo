@@ -6,7 +6,7 @@ function CreateJsonBody
 {
     $value = @"
 {
- "definitionId":$(DefinitionID),
+ "definitionId":$Env:DefinitionID,
  "isDraft":false,
  "manualEnvironments":[]
 }
